@@ -5,3 +5,4 @@ export * from "./MobileHeader";
 export * from "./ProductCard";
 export * from "./Products";
 export * from "./MobileLayout";
+export * from "./LoginPage";

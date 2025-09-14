@@ -1,10 +1,15 @@
+export const dynamic = "force-dynamic";
+
 import { Suspense } from "react";
 import { Products } from "../../ui";
 import Loading from "./loading";
-import axios from "../../lib/api";
 
 export default function ProductsPage() {
-  const products = axios.get("/products").then((res) => res.data);
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
+  const products = fetch(baseUrl + "/products").then((response) =>
+    response.json()
+  );
   return (
     <Suspense fallback={<Loading />}>
       <Products products={products} />
