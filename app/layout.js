@@ -1,5 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import QueryProvider from "../lib/queryProvider";
+import { MobileLayout } from "../ui";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -8,6 +10,16 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+});
+
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -20,9 +32,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning={true}
+        className={`${roboto.variable} ${robotoMono.variable} ${roboto.className} antialiased`}
       >
-        {children}
+        <QueryProvider>
+          <MobileLayout>{children}</MobileLayout>
+        </QueryProvider>
       </body>
     </html>
   );
