@@ -8,7 +8,7 @@
 A small e-commerce demo app built with **Next.js App Router**, **server functions**, and **LowDB**.
 It includes authentication, product browsing, cart management, and order handling.
 
-🚀 Live demo: [https://your-vercel-domain.vercel.app](https://your-vercel-domain.vercel.app)
+🚀 Live demo: [https://mobiversite-ecommerce-app.vercel.app/](https://mobiversite-ecommerce-app.vercel.app/)
 
 ---
 
