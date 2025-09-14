@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛒 Next.js E-Commerce Demo
 
-## Getting Started
+![Vercel](https://img.shields.io/badge/deploy-vercel-blue)
+![Next.js](https://img.shields.io/badge/next.js-15-black)
+![React](https://img.shields.io/badge/react-19-blue)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-4-green)
 
-First, run the development server:
+A small e-commerce demo app built with **Next.js App Router**, **server functions**, and **LowDB**.
+It includes authentication, product browsing, cart management, and order handling.
+
+🚀 Live demo: [https://your-vercel-domain.vercel.app](https://your-vercel-domain.vercel.app)
+
+---
+
+## 📦 Getting Started
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+npm install
+```
+
+### 2. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3. Database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **LowDB** is used as a simple JSON database (`db.json`) with prefilled `products`.
+- No external database setup is needed. Data persists locally.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ⚙️ Design Decisions & Trade-offs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Orders have:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  - `products` → list of purchased products
+  - `createdAt` → timestamp
+    This is more explicit than generic `items` and `date`.
 
-## Deploy on Vercel
+- **Products page** uses server-side fetching due to the large dataset.
+  All other pages use client-side fetching for better UX.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- UI follows a **consistent design system** across components.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🔐 Authentication
+
+- **Next.js middleware** + **HTTP-only cookies**.
+- Login flow:
+
+  - Backend sets `auth` cookie (HttpOnly).
+  - Frontend uses `/api/me` to verify the logged-in user.
+
+- Logout flow:
+
+  - Clears cookie and redirects the user.
+
+---
+
+## 🗂️ State Management
+
+- **Zustand** → local app state (cart, UI state)
+- **React Query** → server state and API communication (products, orders)
+
+  - Provides caching, revalidation, and async handling.
+
+---
+
+## 🔌 API Communication
+
+- Backend uses **Next.js server functions** + **LowDB**.
+
+- Key endpoints:
+
+  - `/api/products` → get products
+  - `/api/orders` → create or fetch orders
+  - `/api/login` → login
+  - `/api/logout` → logout
+  - `/api/me` → current user
+
+- No external `json-server` is used.
+
+---
+
+## 🖥️ Features
+
+- Browse products
+- Add/remove items to cart & wishlist
+- Authentication with login/logout
+- Profile page with order history
+- Mobile-friendly responsive layout
+
+---
+
+## 📝 Notes
+
+- Use **Zustand** for client state.
+- Use **React Query** for API data and caching.
+- Authentication relies on **HttpOnly cookies**, so frontend cannot read them directly.
