@@ -30,7 +30,13 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-### 3. Database
+### 3. Credentials
+
+For login
+Username: demo
+Password: password
+
+### 4. Database
 
 - **LowDB** is used as a simple JSON database (`db.json`) with prefilled `products`.
 - No external database setup is needed. Data persists locally.
